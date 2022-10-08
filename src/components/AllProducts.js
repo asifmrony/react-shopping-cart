@@ -6,7 +6,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import Product from './Product';
 
-function AllProducts({products}) {
+function AllProducts({products, addToCart}) {
   return (
     <>
     <section>
@@ -28,7 +28,7 @@ function AllProducts({products}) {
                 <ul className="swiper-wrapper">
                 {products.map((product) => (
                     <SwiperSlide className="swiper-slide">
-                        <Product product={product} />
+                        <Product product={product} addToCart={addToCart} />
                     </SwiperSlide>
                 ))}
                 </ul>
