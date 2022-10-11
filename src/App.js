@@ -6,13 +6,15 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 function App() {
   const [productInCart, setproductInCart] = useState([]);
   const [cartShow, setcartShow] = useState(false);
+  const [cartItemsPrice, setCartItemsPrice] = useState([]);
 
   const addToCart = (pd) => {
     if(productInCart.some(product => product.id === pd.id)) return;
     setproductInCart([...productInCart, {...pd, quantity: 1}]);
+    // const priceArray = [];
   }
-
-  console.log(productInCart);
+  
+  // console.log(cartItemsPrice);
 
   const handleQuantity = (item, increment) => {
     // console.log(item, increment);
@@ -20,14 +22,19 @@ function App() {
     const arr = productInCart;
     arr[ind].quantity += increment;
     if(arr[ind].quantity === 0) arr[ind].quantity = 1;
-    console.log(...arr);
+    // arr[ind].updatePrice = priceCalc(arr[ind].quantity, arr[ind].price);
+    // console.log(...arr);
     setproductInCart([...arr]);
-    // arr[ind].price = priceCalc(arr[ind].quantity, );
+    productInCart.map((item) => item.updatePrice = priceCalc(item.quantity, item.price));
+    // const priceArray = productInCart.map(item => item.price);
+    // setCartItemsPrice(priceArray);
   }
+
+  console.log(productInCart);
 
   const priceCalc = (quantity, price) => {
     const calculatedPrice = Number(price.substring(price.indexOf('$') + 1)) * quantity;
-    return '$' + calculatedPrice.toString();
+    return calculatedPrice.toString();
   }
 
   const deleteFromCart = (id) => {
@@ -57,7 +64,7 @@ function App() {
       id: 4,
       name: 'Simple Watch',
       image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1598&q=80',
-      price: '$189.99'
+      price: '$160.45'
     },
     {
       id: 5,

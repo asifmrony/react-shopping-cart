@@ -2,6 +2,18 @@ import React, {useState} from 'react'
 
 function Cart({ cart, handleQuantity, deleteFromCart }) {
     const [qcounter, setQCounter] = useState(1);
+    const priceWithoutCurrencySign = (arr) => {
+        return arr.map((item) => {
+            // const {price} = item;
+            // Number(price.substring(price.indexOf('$')))
+            const price = item.updatePrice || item.price; 
+            const convertEd = +(price.substring(price.indexOf('$')));
+            return convertEd;
+        });
+    } 
+
+    console.log(priceWithoutCurrencySign(cart));
+
 
     return (
         <div class="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8 mt-6">
@@ -13,7 +25,7 @@ function Cart({ cart, handleQuantity, deleteFromCart }) {
                         <h2>{product.name}</h2>
                     </div>
                     <div>
-                        <p className='text-blue-500 font-bold mb-4 text-center text-xl'>{product.price}</p>
+                        <p className='text-blue-500 font-bold mb-4 text-center text-xl'>{product.updatePrice || product.price}</p>
                         <div className="flex space-x-2">
                             <button 
                                 className='p-2 rounded-md text-blue-500 font-medium shadow-md focus:ring-2 focus:ring-inset focus:outline-none'
@@ -43,6 +55,13 @@ function Cart({ cart, handleQuantity, deleteFromCart }) {
                     </div>
                 </div>
             ))}
+            <div className="Total-sum px-4 py-8 relative">
+                <div className="absolute left-1/2 -translate-x-[40px] text-lg">
+                    <span>Total Price:</span>
+                    &nbsp;
+                    <span className='font-semibold'>{priceWithoutCurrencySign(cart).reduce((prev, current) => prev + current, 0)}</span>
+                </div>
+            </div>
         </div>
     )
 }
