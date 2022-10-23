@@ -2,6 +2,7 @@ import { useState } from "react";
 import AllProducts from "./components/AllProducts";
 import Cart from './components/Cart';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import cartContext from './components/cartContext'
 
 function App() {
   const [productInCart, setproductInCart] = useState([]);
@@ -85,7 +86,14 @@ function App() {
           </div>
         </div>
       </header>
-      {cartShow ? <Cart cart={productInCart} deleteFromCart={deleteFromCart} handleQuantity={handleQuantity} /> : <AllProducts products={productData} addToCart={addToCart}/> }
+      {cartShow 
+        ? 
+        <Cart cart={productInCart} deleteFromCart={deleteFromCart} handleQuantity={handleQuantity} /> 
+        : 
+        <cartContext.Provider value={{ addToCart }}>
+          <AllProducts products={productData}/> 
+        </cartContext.Provider>
+      }
     </div>
   );
 }

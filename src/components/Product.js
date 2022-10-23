@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import cartContext from './cartContext';
 
+function Product({ product }) {
+    const { addToCart } = useContext(cartContext);
 
-function Product({ product, addToCart }) {
     return (
         <a
             href="/product/build-your-own-drone"
